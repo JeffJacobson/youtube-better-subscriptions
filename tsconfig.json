@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "@tsconfig/strictest"
+  ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "dist",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ]
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
