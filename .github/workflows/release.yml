@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Pack extension ZIP
         uses: TheDoctor0/zip-release@v0.3.0
         with:
           filename: yt-better-subscriptions-latest.zip
-          exclusions: '*.git* .editorconfig chrome_promo_tiles'
-          
+          exclusions: '*.git* .editorconfig chrome_promo_tiles src package.json'
+
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
@@ -36,12 +36,12 @@ jobs:
           prerelease: false
 
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./yt-better-subscriptions-latest.zip
           asset_name: yt-better-subscriptions-${{ steps.get_version.outputs.VERSION }}.zip
           asset_content_type: application/zip
